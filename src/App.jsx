@@ -1,13 +1,25 @@
-import { DarkMode } from './components/DarkMode'
+
+// import { Container } from '@mui/material';
+import { useState } from 'react';
+
+import { DarkMode } from './components/DarkMode';
+
+
+
 
 import './App.css'
 
-function App() {
 
+function App() {
+  const [tasks, setTasks] = useState([]);
+
+  const handleAddTask = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
 
   return (
     <>
-      <DarkMode />
+      <DarkMode onAddTask={handleAddTask} tasks={tasks} />
     </>
   )
 }

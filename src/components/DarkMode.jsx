@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useState } from 'react';
 
 import { Footer } from '../layout/Footer';
@@ -10,6 +12,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 
 const lightTheme = createTheme({
   palette: {
@@ -25,7 +28,7 @@ const darkTheme = createTheme({
 
 
 
-export const DarkMode = () => {
+export const DarkMode = ({ onAddTask, tasks }) => {
   const [darkMode, setDarkMode] = useState(false);
 
   const handleThemeChange = () => {
@@ -44,15 +47,15 @@ export const DarkMode = () => {
           backgroundColor: (theme) =>
             theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
         }}>
-        <h1>ListMe</h1>
+        <Typography variant="h1" sx={{ fontSize: '42px', fontWeight: "800", py: 2 }}>ListMe</Typography>
         <div style={{ padding: 16 }}>
           <Button variant="contained" onClick={handleThemeChange}>
             {darkMode ? <FaSun /> : <FaMoon />}
           </Button>
         </div>
       </Box>
-      <NavSelect />
-      <CheckList />
+      <NavSelect darkMode={darkMode} onAddTask={onAddTask} />
+      <CheckList darkMode={darkMode} tasks={tasks} />
       <Footer />
     </ThemeProvider>
   );
