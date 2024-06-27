@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { setTasksLS } from '../utils/localStorage';
 
-import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, ButtonGroup } from "@mui/material";
 
 const style = {
   position: 'absolute',
@@ -42,6 +42,10 @@ export const ModalEdit = ({ open, handleClose, task, setTasks, tasks }) => {
     handleClose();
   };
 
+  const handleCancelEdit = () => {
+    handleClose();
+  };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -60,57 +64,17 @@ export const ModalEdit = ({ open, handleClose, task, setTasks, tasks }) => {
           onChange={handleDescriptionChange}
           onKeyDown={handleKeyDown}
         />
-        <Button onClick={handleEditTask} color="primary">
-          Editar
-        </Button>
+        <ButtonGroup variant="contained" fullWidth={true} aria-label="outlined primary button group" sx={{ float: 'right' }}>
+          <Button variant="outlined" color="secondary" sx={{ marginRight: 2 }} onClick={handleCancelEdit}>
+            Cancelar
+          </Button>
+          <Button onClick={handleEditTask} color="primary">
+            Editar
+          </Button>
+
+        </ButtonGroup>
       </Box>
     </Modal>
   );
 };
 
-
-// ({ open, handleClose, task, setTasks, tasks, handleEditTask }) => {
-//   const [newDescription, setNewDescription] = useState(task.description);
-
-//   const handleDescriptionChange = (e) => {
-//     setNewDescription(e.target.value);
-//   };
-
-//   const handleKeyDown = (e) => {
-//     if (e.key === 'Enter') {
-//       handleEditTask(task.id, newDescription);
-//       handleClose();
-//     }
-//   };
-
-//   const handleEditClick = () => {
-//     handleEditTask(task.id, newDescription);
-//     handleClose();
-//   };
-
-//   return (
-//     <Modal
-//       open={open}
-//       onClose={handleClose}
-//       aria-labelledby="modal-modal-title"
-//       aria-describedby="modal-modal-description"
-//     >
-//       <Box sx={style}>
-//         <Typography id="modal-modal-title" variant="h6" component="h2">
-//           Edita tu tarea
-//         </Typography>
-//         <TextField
-//           id="outlined-basic"
-//           variant="outlined"
-//           sx={{ m: 1, width: '85%' }}
-//           value={newDescription}
-//           onChange={handleDescriptionChange}
-//           onKeyDown={handleKeyDown}
-//         />
-//         <Button type="button" sx={{ width: '10%', height: '56px' }} onClick={handleEditClick}>
-//           Editar
-//         </Button>
-//       </Box>
-//     </Modal>
-//   );
-// };
