@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ModalEdit } from "./ModalEdit";
+import { ModalDelete } from "./ModalDelete";
 
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
@@ -15,18 +16,29 @@ import { Typography } from "@mui/material";
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export const CheckList = ({ darkMode, tasks, setTasks }) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
 
   const handleOpenModalEdit = (task) => {
     setSelectedTask(task);
-    setOpenModal(true);
+    setOpenModalEdit(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseModalEdit = () => {
+    setOpenModalEdit(false);
     setSelectedTask(null);
   };
+
+  const handleOpenModalDelete = (task) => {
+    setSelectedTask(task);
+    setOpenModalDelete(true);
+  }
+
+  const handleCloseModalDelete = () => {
+    setOpenModalDelete(false);
+    setSelectedTask(null);
+  }
 
   return (
     <>
@@ -74,7 +86,7 @@ export const CheckList = ({ darkMode, tasks, setTasks }) => {
               <Button variant="contained" sx={{ mx: 2 }} onClick={() => handleOpenModalEdit(task)}>
                 <AiFillEdit />
               </Button>
-              <Button variant="outlined" >
+              <Button variant="outlined" onClick={() => handleOpenModalDelete(task)} >
                 <AiFillDelete />
               </Button>
             </div>
@@ -83,8 +95,17 @@ export const CheckList = ({ darkMode, tasks, setTasks }) => {
       </Box>
       {selectedTask && (
         <ModalEdit
-          open={openModal}
-          handleClose={handleCloseModal}
+          open={openModalEdit}
+          handleClose={handleCloseModalEdit}
+          task={selectedTask}
+          setTasks={setTasks}
+          tasks={tasks}
+        />
+      )}
+      {selectedTask && (
+        <ModalDelete
+          open={openModalDelete}
+          handleClose={handleCloseModalDelete}
           task={selectedTask}
           setTasks={setTasks}
           tasks={tasks}
