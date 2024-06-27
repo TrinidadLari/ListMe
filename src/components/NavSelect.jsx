@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 
@@ -7,7 +6,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+
+import { GiSaveArrow } from "react-icons/gi";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,7 +28,8 @@ export const NavSelect = ({ darkMode, onAddTask }) => {
 
   const handleAddTask = () => {
     if (description.trim() !== "") {
-      onAddTask({ description, checked: false, id: uuidv4() });
+      const newTask = { description, checked: false, id: uuidv4() };
+      onAddTask(newTask);
       setDescription("");
     } else {
       alert("La tarea no puede estar vacía");
@@ -57,13 +59,20 @@ export const NavSelect = ({ darkMode, onAddTask }) => {
           ),
           borderRadius: 2,
           p: 2,
-          width: 700,
-          mt: 4
+          width: {
+            xs: '300px',
+            sm: '550px',
+            md: '800px',
+          },
+          mt: 18
         }}
       >
-        <TextField id="outlined-basic" label="Agregar tarea" variant="outlined" sx={{ m: 1, width: '100%' }} value={description} onChange={handleDescriptionChange} onKeyDown={handleKeyDown}
-        />
-
+        <Box display="flex"
+          alignItems="center" sx={{ width: '100%' }}>
+          <TextField id="outlined-basic" label="Agregar tarea" variant="outlined" sx={{ m: 1, width: '85%' }} value={description} onChange={handleDescriptionChange} onKeyDown={handleKeyDown}
+          />
+          <Button sx={{ width: '10%', height: '56px' }} onClick={handleAddTask} ><GiSaveArrow style={{ fontSize: 30 }} /></Button>
+        </Box>
         <FormControl sx={{ m: 1, width: '50%' }}>
           <Select
             value={state}
@@ -77,6 +86,8 @@ export const NavSelect = ({ darkMode, onAddTask }) => {
           </Select>
           <FormHelperText>Filtro de tareas</FormHelperText>
         </FormControl>
+
+
 
       </Box >
     </>

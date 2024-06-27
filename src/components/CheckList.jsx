@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
+
+import { ModalEdit } from "./ModalEdit";
+
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { green } from "@mui/material/colors";
+import { Typography } from "@mui/material";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export const CheckList = ({ darkMode, tasks }) => {
+
   return (
     <>
       <Box sx={{
@@ -20,11 +25,16 @@ export const CheckList = ({ darkMode, tasks }) => {
         ),
         borderRadius: 2,
         p: 2,
-        width: 700,
-        mt: 4
+        width: {
+          xs: '300px',
+          sm: '550px',
+          md: '800px',
+        },
+        mt: 4,
+        mb: 14, overflowY: 'auto'
       }}>
         {tasks.map(task => (
-          <Box
+          <Box as="form"
             key={task.id}
             display="flex"
             justifyContent="space-between"
@@ -46,20 +56,21 @@ export const CheckList = ({ darkMode, tasks }) => {
                   },
                 }}
               />
-              <p>{task.description}</p>
+              <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'wrap' }}>{task.description}</ Typography>
             </Box>
             <div>
-              <Button variant="contained" sx={{ mx: 2 }}>
+              <Button type="submit" variant="contained" sx={{ mx: 2 }}> {/*onClick={handleOpen}> */}
                 <AiFillEdit />
               </Button>
-              <Button variant="outlined" >
+              <Button type="submit" variant="outlined" >
                 <AiFillDelete />
               </Button>
             </div>
-
+            <ModalEdit />
           </Box >
         ))}
       </Box>
     </>
   )
 }
+

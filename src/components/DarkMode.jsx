@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Footer } from '../layout/Footer';
 import { NavSelect } from './NavSelect';
 import { CheckList } from './CheckList';
+import { getTasksLS, setTasksLS } from "../utils/localStorage";
 
 import { FaMoon, FaSun } from "react-icons/fa";
 
@@ -28,11 +29,18 @@ const darkTheme = createTheme({
 
 
 
-export const DarkMode = ({ onAddTask, tasks }) => {
-  const [darkMode, setDarkMode] = useState(false);
+export const DarkMode = () => {
+  const [darkMode, setDarkMode] = useState(true);
+  const [tasks, setTasks] = useState(getTasksLS);
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
+  };
+
+  const handleAddTask = (newTask) => {
+    const updatedTasks = [...tasks, newTask];
+    setTasks(updatedTasks);
+    setTasksLS(updatedTasks);
   };
 
   return (
@@ -49,12 +57,12 @@ export const DarkMode = ({ onAddTask, tasks }) => {
         }}>
         <Typography variant="h1" sx={{ fontSize: '42px', fontWeight: "800", py: 2 }}>ListMe</Typography>
         <div style={{ padding: 16 }}>
-          <Button variant="contained" onClick={handleThemeChange}>
+          <Button variant="contained" style={{ fontSize: 30 }} onClick={handleThemeChange}>
             {darkMode ? <FaSun /> : <FaMoon />}
           </Button>
         </div>
       </Box>
-      <NavSelect darkMode={darkMode} onAddTask={onAddTask} />
+      <NavSelect darkMode={darkMode} onAddTask={handleAddTask} />
       <CheckList darkMode={darkMode} tasks={tasks} />
       <Footer />
     </ThemeProvider>
