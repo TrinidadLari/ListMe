@@ -32,6 +32,7 @@ const darkTheme = createTheme({
 export const DarkMode = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [tasks, setTasks] = useState(getTasksLS);
+  const [filter, setFilter] = useState('todas');
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
@@ -42,6 +43,7 @@ export const DarkMode = () => {
     setTasks(updatedTasks);
     setTasksLS(updatedTasks);
   };
+
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -62,8 +64,8 @@ export const DarkMode = () => {
           </Button>
         </div>
       </Box>
-      <NavSelect darkMode={darkMode} onAddTask={handleAddTask} />
-      <CheckList darkMode={darkMode} tasks={tasks} setTasks={setTasks} />
+      <NavSelect darkMode={darkMode} onAddTask={handleAddTask} onFilterChange={setFilter} />
+      <CheckList darkMode={darkMode} tasks={tasks} setTasks={setTasks} filter={filter} />
       <Footer />
     </ThemeProvider>
   );
