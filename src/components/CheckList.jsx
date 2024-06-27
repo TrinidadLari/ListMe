@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 
 import { ModalEdit } from "./ModalEdit";
 
@@ -12,7 +14,19 @@ import { Typography } from "@mui/material";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-export const CheckList = ({ darkMode, tasks }) => {
+export const CheckList = ({ darkMode, tasks, setTasks }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleOpenModalEdit = (task) => {
+    setSelectedTask(task);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedTask(null);
+  };
 
   return (
     <>
@@ -39,12 +53,10 @@ export const CheckList = ({ darkMode, tasks }) => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-
           >
             <Box
               display="flex"
               alignItems="center"
-
             >
               <Checkbox
                 {...label}
@@ -59,18 +71,25 @@ export const CheckList = ({ darkMode, tasks }) => {
               <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'wrap' }}>{task.description}</ Typography>
             </Box>
             <div>
-              <Button type="submit" variant="contained" sx={{ mx: 2 }}> {/*onClick={handleOpen}> */}
+              <Button variant="contained" sx={{ mx: 2 }} onClick={() => handleOpenModalEdit(task)}>
                 <AiFillEdit />
               </Button>
-              <Button type="submit" variant="outlined" >
+              <Button variant="outlined" >
                 <AiFillDelete />
               </Button>
             </div>
-            <ModalEdit />
-          </Box >
+          </Box>
         ))}
       </Box>
+      {selectedTask && (
+        <ModalEdit
+          open={openModal}
+          handleClose={handleCloseModal}
+          task={selectedTask}
+          setTasks={setTasks}
+          tasks={tasks}
+        />
+      )}
     </>
   )
 }
-

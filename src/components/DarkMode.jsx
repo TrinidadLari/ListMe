@@ -63,7 +63,7 @@ export const DarkMode = () => {
         </div>
       </Box>
       <NavSelect darkMode={darkMode} onAddTask={handleAddTask} />
-      <CheckList darkMode={darkMode} tasks={tasks} />
+      <CheckList darkMode={darkMode} tasks={tasks} setTasks={setTasks} />
       <Footer />
     </ThemeProvider>
   );
