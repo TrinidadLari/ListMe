@@ -13,12 +13,14 @@ import { GiSaveArrow } from "react-icons/gi";
 import { v4 as uuidv4 } from 'uuid';
 
 
-export const NavSelect = ({ darkMode, onAddTask }) => {
-  const [state, setState] = useState('Todas');
+export const NavSelect = ({ darkMode, onAddTask, onFilterChange }) => {
+  const [state, setState] = useState('todas');
   const [description, setDescription] = useState("");
 
-  const handleChange = (e) => {
-    setState(e.target.value);
+  const handleFilterChange = (e) => {
+    const filterValue = e.target.value;
+    setState(filterValue);
+    onFilterChange(filterValue);
   };
 
 
@@ -76,13 +78,13 @@ export const NavSelect = ({ darkMode, onAddTask }) => {
         <FormControl sx={{ m: 1, width: '50%' }}>
           <Select
             value={state}
-            onChange={handleChange}
+            onChange={handleFilterChange}
             inputProps={{ 'aria-label': 'Without label' }}
             fullWidth
           >
-            <MenuItem value={'Todas'}>Todas</MenuItem>
-            <MenuItem value={'Realizadas'} >Realizadas</MenuItem>
-            <MenuItem value={'Pendientes'} >Pendientes</MenuItem>
+            <MenuItem value={'todas'}>Todas</MenuItem>
+            <MenuItem value={'realizadas'} >Realizadas</MenuItem>
+            <MenuItem value={'pendientes'} >Pendientes</MenuItem>
           </Select>
           <FormHelperText>Filtro de tareas</FormHelperText>
         </FormControl>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ModalEdit } from "./ModalEdit";
 import { ModalDelete } from "./ModalDelete";
 
+
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 import { Box } from "@mui/material";
@@ -15,10 +16,11 @@ import { Typography } from "@mui/material";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-export const CheckList = ({ darkMode, tasks, setTasks }) => {
+export const CheckList = ({ darkMode, tasks, setTasks, filter }) => {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [openModalDelete, setOpenModalDelete] = useState(false);
+
 
   const handleOpenModalEdit = (task) => {
     setSelectedTask(task);
@@ -40,6 +42,24 @@ export const CheckList = ({ darkMode, tasks, setTasks }) => {
     setSelectedTask(null);
   }
 
+  const handleChecked = (taskId) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, checked: !task.checked } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const filtersTasks = tasks.filter((task) => {
+    if (filter === 'realizadas') {
+      return task.checked;
+    } else if (filter === 'pendientes') {
+      return !task.checked;
+    } else {
+      return true;
+    }
+  });
+
+
   return (
     <>
       <Box sx={{
@@ -59,7 +79,7 @@ export const CheckList = ({ darkMode, tasks, setTasks }) => {
         mt: 4,
         mb: 14, overflowY: 'auto'
       }}>
-        {tasks.map(task => (
+        {filtersTasks.map(task => (
           <Box as="form"
             key={task.id}
             display="flex"
@@ -72,7 +92,8 @@ export const CheckList = ({ darkMode, tasks, setTasks }) => {
             >
               <Checkbox
                 {...label}
-                defaultChecked
+                checked={task.checked}
+                onChange={() => handleChecked(task.id)}
                 sx={{
                   color: green[800],
                   '&.Mui-checked': {
