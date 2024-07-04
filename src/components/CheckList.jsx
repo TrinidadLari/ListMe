@@ -72,7 +72,7 @@ export const CheckList = ({ darkMode, tasks, setTasks, filter }) => {
         borderRadius: 2,
         p: 2,
         width: {
-          xs: '300px',
+          xs: '370px',
           sm: '550px',
           md: '800px',
         },
@@ -104,7 +104,7 @@ export const CheckList = ({ darkMode, tasks, setTasks, filter }) => {
               <Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'wrap' }}>{task.description}</ Typography>
             </Box>
             <div>
-              <Button variant="contained" sx={{ mx: 2 }} onClick={() => handleOpenModalEdit(task)}>
+              <Button variant="contained" sx={{ mx: 1 }} onClick={() => handleOpenModalEdit(task)}>
                 <AiFillEdit />
               </Button>
               <Button variant="outlined" onClick={() => handleOpenModalDelete(task)} >
