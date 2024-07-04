@@ -24,8 +24,17 @@ export const NavSelect = ({ darkMode, onAddTask, onFilterChange }) => {
   };
 
 
+  // const handleDescriptionChange = (e) => {
+  //   setDescription(e.target.value);
+  // };
+
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+    const newDescription = e.target.value;
+    if (newDescription.length <= 20) {
+      setDescription(newDescription);
+    } else {
+      alert("La tarea puede tener hasta 20 caracteres");
+    }
   };
 
   const handleAddTask = () => {
@@ -62,7 +71,7 @@ export const NavSelect = ({ darkMode, onAddTask, onFilterChange }) => {
           borderRadius: 2,
           p: 2,
           width: {
-            xs: '300px',
+            xs: '370px',
             sm: '550px',
             md: '800px',
           },
