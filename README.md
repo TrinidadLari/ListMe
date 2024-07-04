@@ -45,7 +45,11 @@ Si una tarea te resultó tan tediosa de hacer que preferis olvidarla, 🤭 hacie
 
 ![Eliminar tarea](./src/assets/img/delete.png "Eliminar tarea")
 
+## Modo claro - Modo oscuro
 
+Tambien tenés la opción de usar esta app en modo claro... Podes acceder haciendo click en el boton del sol y este será el serultado:
+
+![Modo claro](./src/assets/img/lightMode.png "Modo claro")
 
 
 ### ESPERO QUE LO DISFRUTES Y QUE SEA ÚTIL PARA ORGANIZAR TU DÍA A DÍA
